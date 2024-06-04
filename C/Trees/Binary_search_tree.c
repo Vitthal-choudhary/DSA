@@ -52,6 +52,49 @@ struct BST_Node* Search(struct BST_Node *root, int val){
 }
 
 
+int minVal(struct BST_Node* root){
+    int min = root->data;
+    while (root->left != NULL)
+    {
+        min = root->left->data;
+        root = root->left;
+    }
+    return min;    
+}
+
+struct BST_Node* delete_in_BST(struct BST_Node *root, int value){
+    if (root==NULL)
+    {
+        return NULL;
+    }
+    
+    if (value < root->data)
+    {
+        root->left = delete_in_BST(root->left, value);
+    }
+    else if (value > root->data)
+    {
+        root->right = delete_in_BST(root->right, value);
+    }
+    else{
+        if (root->left == NULL)
+        {
+            struct BST_Node* temp = root->right;
+            free(root);
+            return temp;
+        }
+        else if (root->right == NULL)
+        {
+            struct BST_Node* temp = root->left;
+            free(root);
+            return temp;
+        }
+        root->data = minVal(root->right);
+        root->right = delete_in_BST(root->right, root->data);
+    }
+    return root;    
+}
+
 void InOrder(struct BST_Node *root)
 {
 	if (root != NULL)
@@ -115,11 +158,12 @@ int main(){
 
     // 2. Choices
     int choice;
-    printf("Enter your Choice.\n1. For Pre Order Treaversal\n2. For In Order Traversal\n3. For Post Order Traversal\n4. To Search an Element\n5. To Exit");
-
+    
     do
     {
+        printf("Enter your Choice.\n1. For Pre Order Treaversal\n2. For In Order Traversal\n3. For Post Order Traversal\n4. To Search an Element\n5. To Delete\n6. To Exit\n");
         scanf("%d", &choice);
+
         if (choice==1){
             PreOrder(root);
             printf("\n");
@@ -140,12 +184,20 @@ int main(){
         }
         else if (choice==5)
         {
+            printf("Enter value to delete");
+            scanf("%d", &choice);
+            struct BST_Node *save = delete_in_BST(root, choice);
+            InOrder(save);
+        }
+        
+        else if (choice==6)
+        {
             freeTree(root);
             exit(0);
         }
         else
             printf("Wrong Choice\n");  
-    } while (choice!=5);
+    } while (choice!=6);
 
     return 0;
 }
