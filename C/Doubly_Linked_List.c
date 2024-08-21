@@ -211,9 +211,15 @@ void Delete_after_a_Node()
 	{
 		if (ptr->rlink->info == item)
 		{
+			// This one deletes, the entered node. comment one deletes node after.
 			save = ptr->rlink;
 			ptr->rlink = save->rlink;
 			save->rlink->llink = ptr;
+			/*
+			save = ptr->rlink->rlink;
+			ptr->rlink->rlink = save->rlink;
+			save->rlink->llink = ptr->rlink;
+			*/
 			free(save);
 			break;
 		}
