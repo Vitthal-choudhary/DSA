@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include <process.h>
+#include <stdlib.h>
 
 void Traverse(int arr[], int size){
 	int i;
