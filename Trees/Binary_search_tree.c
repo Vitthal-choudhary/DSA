@@ -1,10 +1,13 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+// Node of the Binary Search Tree
 struct BST_Node{
     int data;
     struct BST_Node *left, *right;
 };
+
+
 
 struct BST_Node* Create_BST(int val){
     struct BST_Node *new_bst_node = (struct BST_Node*)malloc(sizeof(struct BST_Node));
@@ -138,12 +141,14 @@ void freeTree(struct BST_Node *root)
 int main(){
     // 1st Create a tree
 
-    struct BST_Node *root = NULL;
+    struct BST_Node *root = NULL;	// root node
+    
     int vals;
     printf("Enter value for root  ");
-    scanf("%d", &vals);
+    scanf("%d", &vals);		// value for root node
 
-    root = Create_BST(vals);
+    root = Create_BST(vals);	// root given data = vals
+    
     while (vals!=-1)
     {
         printf("Enter value for nodes  [-1 to stop]  ");
